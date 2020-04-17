@@ -4,7 +4,7 @@ Using this script you can generate a graph with changes in the number of infecte
 
 Thanks to the site https://covid19api.com/ for the information abouts COVID-19 cases for the script.
 
-##How to use
+## How to use
 1. Install libs `operator`, `requests`, `requests`, `matplotlib` from pip.
 2. Launch file `main.py` for generate charts.
 3. In the file `result.png` you will find the generated charts.
