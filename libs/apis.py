@@ -8,37 +8,35 @@ def from_utc(utcTime, fmt="%Y-%m-%dT%H:%M:%SZ"):
 
 
 def getCountries(numbers):
-    names = []
+    countries = []
     json = requests.get('https://api.covid19api.com/summary').json()
-    dict = json['Countries']
-    newlist = sorted(dict, key=itemgetter('TotalConfirmed'), reverse=True)
+    d = json['Countries']
+    newlist = sorted(d, key=itemgetter('TotalConfirmed'), reverse=True)
     for i in range(numbers):
-        names.append(newlist[i]['Slug'])
-    return names
+        countries.append(newlist[i]['Slug'])
+    return countries
 
 
-def getCountriesNames():
-    names = []
+def getCountriesNames(numbers):
+    countries = []
     json = requests.get('https://api.covid19api.com/summary').json()
-    dict = json['Countries']
-    newlist = sorted(dict, key=itemgetter('TotalConfirmed'), reverse=True)
-    for i in range(10):
-        names.append(newlist[i]['Country'])
-    return names
+    newlist = sorted(json['Countries'], key=itemgetter('TotalConfirmed'), reverse=True)
+    for i in range(numbers):
+        countries.append(newlist[i]['Country'])
+    return countries
 
 
 def getCountryInfo(country):
     json = requests.get('https://api.covid19api.com/total/country/' + country + '/status/confirmed').json()
-    mass = []
+    arr = []
     for i in range(0, len(json), 7):
-        date = json[i]['Date']
-        date = str(from_utc(date).date()).split('-')
+        date = str(from_utc(json[i]['Date']).date()).split('-')
         date = date[2] + '.' + date[1] + '.' + date[0]
 
         if date != 'None':
-            dict = {
+            d = {
                 'cases': json[i]['Cases'],
                 'date': date
             }
-            mass.append(dict)
-    return mass
+            arr.append(d)
+    return arr

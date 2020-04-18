@@ -1,19 +1,30 @@
 from libs.apis import getCountryInfo, getCountries, getCountriesNames
-from libs.graphs import visualize
+from libs.charts import visualize
 
-# Get top 10 countries
-countries = getCountries(10)
-countries_names = getCountriesNames()
-mass = []
 
-for i in range(len(countries)):
-    country = countries[i]
-    country_names = countries_names[i]
-    country_info = getCountryInfo(country)
-    dict = {
-        'country': country_names,
-        'info': country_info
-    }
-    mass.append(dict)
+def main():
+    arr = []
 
-visualize(mass)
+    number = 10
+
+    # Get top 10 countries
+    countries = getCountries(number)
+    countries_names = getCountriesNames(number)
+
+    for i in range(len(countries)):
+        country = countries[i]
+        country_names = countries_names[i]
+        country_info = getCountryInfo(country)
+
+        d = {
+            'country': country_names,
+            'info': country_info
+        }
+
+        arr.append(d)
+
+    visualize(arr)
+
+
+if __name__ == "__main__":
+    main()
